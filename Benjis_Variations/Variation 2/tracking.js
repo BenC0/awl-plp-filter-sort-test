@@ -38,6 +38,12 @@
         // ** Apply event listeners here
         gaSendEvent("Loaded", "Variation Loaded", true);
 
+        document.querySelector('.customSortBy select').addEventListener('change', function(e) {
+            var sort = document.querySelector('.customSortBy select');
+            var SortVal = sort.children[sort.selectedIndex].textContent
+            gaSendEvent("Click", "plp_sort: ".concat(SortVal), false);
+        })
+
         let filterBtn = document.querySelector("#refineControl");
         if (filterBtn) {
             filterBtn.addEventListener("click", function() {
