@@ -38,6 +38,7 @@
         // ** Apply event listeners here
         gaSendEvent("Loaded", "Variation Loaded", true);
 
+        // BC: Sort By event listener
         document.querySelector('.customSortBy select').addEventListener('change', function(e) {
             var sort = document.querySelector('.customSortBy select');
             var SortVal = sort.children[sort.selectedIndex].textContent

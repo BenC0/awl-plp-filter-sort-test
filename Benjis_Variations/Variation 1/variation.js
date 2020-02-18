@@ -1,6 +1,6 @@
 (function() {
     "use strict";
-    // BC: track last scroll top position in variable to combat filter scroll jump
+    // BC: track last scroll top position in variable to determine scroll direction
     var lastScrollTop = 0;
 
     // BC: function that toggles the "sort_hidden" class on the body depending on the value of remove argument
