@@ -1,7 +1,9 @@
 (function() {
   "use strict";
+  // BC: track last scroll top position in variable to combat filter scroll jump
   var lastScrollTop = 0;
 
+  // BC: function that toggles the "sort_hidden" class on the body depending on the value of remove argument
   function sortToggle(remove) {
     var sortClassName = 'sort_hidden'
     if (remove) {
@@ -10,7 +12,7 @@
       document.body.classList.add(sortClassName)
     }
   }
-
+  // BC: debounce function to limit the number of times a function fires. This prevents the scroll event firing the function on every single pixel and is better for performance (mostly on older devices)
   function debounce(func, wait, immediate) {
     var timeout;
     return function() {
@@ -26,24 +28,19 @@
     };
   };
 
+  // BC: function to add the scroll listener to the window. Determines if the current scroll position is < or > the last scroll position and calls the sortToggle function
   function scrollListener() {
     window.addEventListener('scroll', debounce(function() {
       var st = window.pageYOffset || document.documentElement.scrollTop;
       if (st > lastScrollTop){
+        // scroll up
         sortToggle(false)
       } else {
+        // scroll down
         sortToggle(true)
       }
       lastScrollTop = st <= 0 ? 0 : st; // For Mobile or negative scrolling
     }))
-  }
-
-  function addStyles() {
-    var styles = ".sort_hidden.plp_var_b_loaded #controlWrapper .customSortBy {opacity: 0; height: 0px; } .sort_hidden.plp_var_b_loaded #mn_filter_shelf {height: 58px; } .plp_var_b_loaded #mn_filter_shelf, .plp_var_b_loaded #controlWrapper .customSortBy {transition: all .35s ease-in; }"
-    var styleSheet = document.createElement("style")
-    styleSheet.type = "text/css"
-    styleSheet.innerText = styles
-    document.head.appendChild(styleSheet)
   }
   /**
      * Execute a callback when the DOM has loaded
@@ -141,8 +138,8 @@
     });
 
     setExpLoaded();
+    // BC: Called the scrollListener function here.
     scrollListener()
-    addStyles()
   }
 
   onDomReady(run);
